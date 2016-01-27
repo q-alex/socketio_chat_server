@@ -6,9 +6,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/q-alex/socketio_chat_server"
+  },
   "author": "Alex Qiu",
   "license": "MIT",
   "dependencies": {
-    "ws": "^1.0.1"
+    "express": "^4.13.4",
+    "socket.io": "^1.4.4"
   }
 }

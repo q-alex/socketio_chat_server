@@ -1,16 +1,26 @@
-var WebSocketServer = require('ws').Server
-  , wss = new WebSocketServer({ port: 3000 });
+var express = require('express');
+var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
+app.use('/app', express.static('app'));
 
-var clients = [];
+app.get('/', function(request, response) {
+  response.sendFile('client.html', {root: __dirname});
+})
 
-wss.on('connection', function connection(ws) {
-  clients.push(ws);
-  ws.on('message', function incoming(message) {
-    console.log('received: %s', message);
-    for(var i = 0; i < clients.length; i++) {
-      clients[i].send("Message " + i + ": "  + message);
-    }
-  });
-  ws.send('New User Joined');
+http.listen(3000, function(){
+  console.log('listening on *:3000');
 });
+
+io.on('connection', function(socket) {
+  console.log('A user connected');
+  socket.on('disconnect', function() {
+    console.log('A user disconnected');
+  })
+
+  socket.on('chat message', function(message) {
+    console.log('message: ' + message);
+    socket.broadcast.emit('chat message', message);
+  })
+})

@@ -1,0 +1,22 @@
+<html ng-app="chatApp">
+<head>
+  <title>Chat Client</title>
+  <link rel="stylesheet" type="text/css" href="/app/css/client.css">
+  <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.1/angular.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/app/js/client.js"></script>
+</head>
+<body ng-controller="ChatAppController">
+  <div>
+    <ul id = "messageList">
+      <li ng-repeat="message in messages">{{message.message}}</li>
+    </ul>
+  </div>
+  <div>
+    <form ng-submit="sendMessage()">
+      <input type="text" ng-model="chatMessage">
+      <input type="submit" value="Send">
+    </form>
+  </div>
+</body>
+</html>
